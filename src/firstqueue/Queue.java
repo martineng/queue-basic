@@ -59,5 +59,10 @@ public class Queue
     {
         return (nItem==maxSize);
     } // end isFull()
+    
+    public long size()
+    {
+        return nItem;
+    }
 
 } // END class
