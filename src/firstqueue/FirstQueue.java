@@ -5,31 +5,48 @@
  */
 package firstqueue;
 
+import java.util.Random;
+
 public class FirstQueue 
 {
     public static void main(String[] args) throws InterruptedException 
     {
        Queue theQueue = new Queue(5);
+       Random rand = new Random();
+       int randInt;
        
-       theQueue.insert(11);
-       theQueue.insert(22);
-       theQueue.insert(33);
-       theQueue.insert(44);
+       // Insert 4 entity
+       for (int count = 0; count < 4; count++)
+       {
+           randInt = rand.nextInt(100);
+           System.out.println("Insert " + randInt);
+           theQueue.insert(randInt);
+       } // END FOR
        
-       theQueue.remove();
-       theQueue.remove();
-       theQueue.remove();
+       System.out.print("\n");
        
-       theQueue.insert(55);
-       theQueue.insert(66);
-       theQueue.insert(77);
-       theQueue.insert(88);
+       for (int count = 0; count < 3; count++)
+       {
+           System.out.println(theQueue.peekFront() + " will be deleted!");
+           theQueue.remove();
+       } // END FOR
+       
+       System.out.print("\n");
+       
+       for (int count = 0; count < 3; count++)
+       {
+           randInt = rand.nextInt(100);
+           System.out.println("Insert " + randInt);
+           theQueue.insert(randInt);
+       } // END FOR
+       
+       System.out.println("\nPrinting the Queue: ");
+       
        
        while (!theQueue.isEmpty())
        {
            long count = theQueue.remove();
-           System.out.print(count);
-           System.out.print(" ");
+           System.out.println(count);
        } // END while()
        
        System.out.println("");
