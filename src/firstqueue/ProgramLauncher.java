@@ -8,6 +8,7 @@ public class ProgramLauncher
     Queue theQueue = new Queue(5);
     Scanner inputReader = new Scanner(System.in);
     
+    // This function will be called in main.java
     public void run()
     {
         int input = 0;
@@ -17,22 +18,24 @@ public class ProgramLauncher
             do
             {
                 menu();
+                System.out.print(">> ");
                 input = inputReader.nextInt();
                 executeMenu(input);
+                System.out.println("Press any key to return...");
                 System.in.read();
             } while(input != 0);
         }
         catch(Exception e)
         {
-            
+            System.out.println(e);
         }
-        
     }
     
+    // This function print out the User Interface/Menu
     public void menu()
     {
         System.out.println("============================");
-        System.out.println("Your Queue is currently size: " + theQueue.size());
+        System.out.println("Your Queue current size: " + theQueue.size());
         runCheckQueue();
         System.out.println("Please select an action: ");
         System.out.println("============================");
@@ -43,6 +46,7 @@ public class ProgramLauncher
         System.out.println("(5) - Print Queue");
     } // END menu()
     
+    // This function is the logical operation
     public void executeMenu(int inInput)
     {
         switch (inInput)
@@ -60,6 +64,9 @@ public class ProgramLauncher
             case 5:
                 runPrintQueue();
                 break;
+            case 0:
+                
+                break;
         }
     }
     
@@ -73,6 +80,7 @@ public class ProgramLauncher
             int randInt = rand.nextInt(100);
         
             theQueue.insert(randInt);
+            System.out.println("Added " + randInt);
         }
         else
         {
@@ -81,10 +89,12 @@ public class ProgramLauncher
         
     } // END runGenerateNumber()
     
+    // Execute option 2
     public void runRemoveQueue()
     {
         if (!(theQueue.isEmpty()))
         {
+            System.out.println("Deleting " + theQueue.peekFront());
             theQueue.remove();
         }
         else
@@ -94,36 +104,45 @@ public class ProgramLauncher
     } // END runRemoveQueue()
     
     // This function will return statement according to 
-    // the state of the Queue
+    // the state of the Queue.
     public void runCheckQueue()
     {
         if (theQueue.isEmpty())
         {
-            System.out.println("Your Queue is EMPTY");
+            System.out.println("Your Queue is [EMPTY]");
         }
         else if (theQueue.isFull())
         {
-            System.out.println("Your Queue is FULL");
+            System.out.println("Your Queue is [FULL]");
         }
         else
         {
-            System.out.println("Your current item is:" + theQueue.peekFront());
+            System.out.println("Your front item is: " + theQueue.peekFront());
         } // END IF
     }
     
+    // This function print all entity in Queue
     public void runPrintQueue()
     {
-        long count = 0;
-        
-        Queue tempQueue = theQueue;
-
-        System.out.println("Outputing the Queue: ");
-        
-        while (!(tempQueue.isEmpty()))
+        if (theQueue.isEmpty())
         {
-            count = tempQueue.remove();
-            System.out.println(count);
-        } // END WHILE
+            System.out.println("Your queue is empty, there's nothing to print.");
+        }
+        else
+        {
+            long count = 0;
+        
+            Queue tempQueue = theQueue;
+
+            System.out.println("Outputing the Queue: ");
+
+            while (!(tempQueue.isEmpty()))
+            {
+                count = tempQueue.remove();
+                System.out.println(count);
+            } // END WHILE
+        } // END IF
+        
     } // END runPrintQueue()
 
 }
