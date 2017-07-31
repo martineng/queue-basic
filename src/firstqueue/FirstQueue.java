@@ -12,7 +12,8 @@ public class FirstQueue
 {
     public static void main(String[] args) throws InterruptedException 
     {
-       
+       ProgramLauncher launcher = new ProgramLauncher();
+       launcher.run();
     } // END main()
    
 } // END class

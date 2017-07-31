@@ -1,81 +1,129 @@
 package firstqueue;
 
 import java.util.Random;
+import java.util.Scanner;
 
 public class ProgramLauncher
 {
     Queue theQueue = new Queue(5);
+    Scanner inputReader = new Scanner(System.in);
     
-    public void luncher()
+    public void run()
     {
-        Random rand = new Random();
-        int randInt;
-
-        // Insert 4 entity
-        for (int count = 0; count < 4; count++)
+        int input = 0;
+        
+        try
         {
-            randInt = rand.nextInt(100);
-            System.out.println("Insert " + randInt);
-            theQueue.insert(randInt);
-        } // END FOR
-
-        System.out.print("\n");
-
-        for (int count = 0; count < 3; count++)
+            do
+            {
+                menu();
+                input = inputReader.nextInt();
+                executeMenu(input);
+                System.in.read();
+            } while(input != 0);
+        }
+        catch(Exception e)
         {
-            System.out.println(theQueue.peekFront() + " will be deleted!");
-            theQueue.remove();
-        } // END FOR
-
-        System.out.print("\n");
-
-        for (int count = 0; count < 3; count++)
-        {
-            randInt = rand.nextInt(100);
-            System.out.println("Insert " + randInt);
-            theQueue.insert(randInt);
-        } // END FOR
-
-        System.out.println("\nPrinting the Queue: ");
-
-
-        while (!theQueue.isEmpty())
-        {
-            long count = theQueue.remove();
-            System.out.println(count);
-        } // END while()
-
-        System.out.println("");
+            
+        }
+        
     }
-    
     
     public void menu()
     {
         System.out.println("============================");
-        System.out.println("Your Queue is currently ");
+        System.out.println("Your Queue is currently size: " + theQueue.size());
+        runCheckQueue();
         System.out.println("Please select an action: ");
         System.out.println("============================");
         System.out.println("(1) - Generate random number into Queue");
-        System.out.println("(2) - Check the front item");
-        System.out.println("(3) - Remove the front item");
-        System.out.println("(4) - Check if the queue is empty");
-        System.out.println("(5) - Check if the queue is full");
-        System.out.println("(6) - ");
-        
+        System.out.println("(2) - Remove the front item");
+        System.out.println("(3) - Enlarge your queue");
+        System.out.println("(4) - Minimize your queue");
+        System.out.println("(5) - Print Queue");
+    } // END menu()
+    
+    public void executeMenu(int inInput)
+    {
+        switch (inInput)
+        {
+            case 1:
+                runGenerateNumber();
+                break;
+            case 2:
+                runRemoveQueue();
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                runPrintQueue();
+                break;
+        }
     }
     
     // Execute option 1
     // Random generate a number into the Queue
     public void runGenerateNumber()
     {
-        Random rand = new Random();
-        int randInt = rand.nextInt(100);
+        if (!(theQueue.isFull()))
+        {
+            Random rand = new Random();
+            int randInt = rand.nextInt(100);
         
-        theQueue.insert(randInt);
+            theQueue.insert(randInt);
+        }
+        else
+        {
+            System.out.println("Your Queue is Full.");
+        } // END IF
+        
     } // END runGenerateNumber()
     
-    public void runCheckFront()
+    public void runRemoveQueue()
     {
-        System.out.println("Currently in front " + theQueue.peekFront());
+        if (!(theQueue.isEmpty()))
+        {
+            theQueue.remove();
+        }
+        else
+        {
+            System.out.print("Operation failed.\nYour Queue is empty.");
+        } // END IF
+    } // END runRemoveQueue()
+    
+    // This function will return statement according to 
+    // the state of the Queue
+    public void runCheckQueue()
+    {
+        if (theQueue.isEmpty())
+        {
+            System.out.println("Your Queue is EMPTY");
+        }
+        else if (theQueue.isFull())
+        {
+            System.out.println("Your Queue is FULL");
+        }
+        else
+        {
+            System.out.println("Your current item is:" + theQueue.peekFront());
+        } // END IF
     }
+    
+    public void runPrintQueue()
+    {
+        long count = 0;
+        
+        Queue tempQueue = theQueue;
+
+        System.out.println("Outputing the Queue: ");
+        
+        while (!(tempQueue.isEmpty()))
+        {
+            count = tempQueue.remove();
+            System.out.println(count);
+        } // END WHILE
+    } // END runPrintQueue()
+
 }
